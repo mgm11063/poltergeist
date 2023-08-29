@@ -26,7 +26,7 @@ class CommonCommunityModel(models.Model):
     content = models.TextField(max_length=999)
     category = models.CharField(
         max_length=20,
-        choices=CommunityCategoryChoices.choices,
+        choices=CommunityCategoryChoices,
     )
 
     class Meta:

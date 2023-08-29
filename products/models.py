@@ -21,5 +21,5 @@ class Product(CommonModel):
 
     category = models.CharField(
         max_length=20,
-        choices=ProductCategoryChoices.choices,
+        choices=ProductCategoryChoices,
     )
