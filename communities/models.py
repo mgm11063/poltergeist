@@ -1,5 +1,5 @@
 from django.db import models
-from common.models import CommonModel, CommonCommunityModel
+from common.models import CommonCommunityModel
 
 
 class Post(CommonCommunityModel):

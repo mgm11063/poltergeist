@@ -23,3 +23,6 @@ class Product(CommonModel):
         max_length=20,
         choices=ProductCategoryChoices,
     )
+
+    def __str__(self) -> str:
+        return self.name

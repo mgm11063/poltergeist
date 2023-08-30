@@ -12,3 +12,9 @@ class Activity(CommonModel):
     start_day = models.DateField(null=True)
     close_day = models.DateField(null=True)
     temperature = models.IntegerField(null=True)
+
+    class Meta:
+        verbose_name_plural = "Activities"
+
+    def __str__(self):
+        return self.name
