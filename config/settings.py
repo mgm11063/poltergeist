@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-0kbv(z@ud%t-=@1xh^zd)j#k=2jq!cy41hg7=f(adi7((v-(1d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -143,3 +143,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Auth
 
 AUTH_USER_MODEL = "users.User"
+
+# Whether to append trailing slashes to URLs.
+APPEND_SLASH = True

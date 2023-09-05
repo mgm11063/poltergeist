@@ -7,4 +7,12 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   }
+  {
+    "python.linting.pylintArgs": [
+      "--rcfile",
+      "pylint.config",
+      "--disable",
+      "missing-docstring"
+  ]
+  }
 }
