@@ -2,6 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.Products.as_view()),
-    path("<int:pk>", views.ProductDetail.as_view()),
+    path("", views.ProductViewSet.as_view({"get": "list", "post": "create"})),
+    path(
+        "<int:pk>",
+        views.ProductViewSet.as_view(
+            {"get": "retrieve", "put": "partial_update", "delete": "destroy"}
+        ),
+    ),
 ]
