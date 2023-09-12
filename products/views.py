@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from rest_framework.status import HTTP_202_ACCEPTED
@@ -6,51 +6,43 @@ from .models import Product
 from .serializers import ProductSerializer
 
 
-@api_view(["GET", "POST"])
-def products(request):
-    if request.method == "GET":
+class Products(APIView):
+    def get(self, request):
         all_products = Product.objects.all()
         serializer = ProductSerializer(all_products, many=True)
-        return Response(
-            {
-                "ok": True,
-                "products": serializer.data,
-            }
-        )
-    elif request.method == "POST":
-        serializer = ProductSerializer(data=request.data)
+        return Response(serializer.data)
+
+    def post(self, request):
+        user_submit_data = request.data
+        serializer = ProductSerializer(user_submit_data)
         if serializer.is_valid():
             new_product = serializer.save()
-            return Response(
-                ProductSerializer(new_product).data,
-            )
+            return Response(ProductSerializer(new_product).data)
         else:
             return Response(serializer.errors)
 
 
-@api_view(["GET", "PUT", "DELETE"])
-def product(request, pk):
-    try:
-        product = Product.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        raise NotFound
+class ProductDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise NotFound
 
-    if request.method == "GET":
-        serializer = ProductSerializer(product)
-        return Response(serializer.data)
+    def get(self, pk):
+        serializer = ProductSerializer(self.get_object(pk=pk))
+        return serializer.data
 
-    elif request.method == "PUT":
+    def put(self, request, pk):
         serializer = ProductSerializer(
-            product,
-            data=request.data,
-            partial=True,  # 데이터가 완벽하지 않을 수 도 있음을 정의
+            self.get_object(pk, data=request.data, partial=True)
         )
         if serializer.is_valid():
             updated_product = serializer.save()
-            return Response(ProductSerializer(updated_product).data)
-        else:
-            return Response(serializer.errors)
+            return Response(updated_product).data
 
-    elif request.method == "DELETE":
-        product.delete()
-        return Response(HTTP_202_ACCEPTED)
+    def delete(self, pk):
+        self.get_object(pk).delete()
+
+
+# dawonsaranghae
