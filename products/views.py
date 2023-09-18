@@ -13,7 +13,7 @@ class Products(APIView):
 
     def post(self, request):
         user_submit_data = request.data
-        serializer = ProductSerializer(user_submit_data)
+        serializer = ProductSerializer(data=user_submit_data)
         if serializer.is_valid():
             new_product = serializer.save()
             return Response(ProductSerializer(new_product).data)
