@@ -4,7 +4,8 @@ from rest_framework.exceptions import NotFound
 from .models import Product
 from .serializers import ProductSerializer
 
-#test:)
+
+# test:)
 class Products(APIView):
     def get(self, request):
         all_products = Product.objects.all()

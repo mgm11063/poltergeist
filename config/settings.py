@@ -49,6 +49,7 @@ CUSTOM_APPS = [
     "products.apps.ProductsConfig",
     "communities.apps.CommunitiesConfig",
     "wishlists.apps.WishlistsConfig",
+    "searches.apps.SearchesConfig",
 ]
 
 
